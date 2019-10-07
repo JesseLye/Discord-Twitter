@@ -119,7 +119,7 @@ async function handlePost(msg) {
         var hasErr = false;
         if (msg.attachments) {
             // check character limit
-            var charLimit = msg.content.length < 280;
+            var charLimit = msg.content ? msg.content.length > 280 : false;
             if (charLimit) {
                 bot.channels.get(process.env.DISCORD_CHANNEL).send("Too many characters!");
                 throw "Too many characters";
