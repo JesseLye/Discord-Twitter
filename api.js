@@ -40,7 +40,6 @@ exports.onInit = async function () {
                         if (getUrl.length > 0) {
                             message = buildObject(getMessages[i]);
                             urlArray.push(message);
-                            insertedArray = true;
                             message = {};
                         }
                     }
