@@ -1,9 +1,4 @@
 const fetch = require("node-fetch");
-const {
-    buildUrl,
-    makeId,
-    getFileType,
-} = require("./utils");
 const fs = require("fs");
 
 exports.createJSON = async function(discordID) {
@@ -28,22 +23,4 @@ exports.downloadImage = async function(url, path) {
             resolve();
         });
     });
-}
-
-exports.downloadUrl = async function(message) {
-    var fileName = "";
-    url = buildUrl(message);
-    if (url === -1) {
-        bot.channels.get(process.env.DISCORD_CHANNEL).send("Need an image, doc.");
-        throw "No Image Found";
-    }
-    fileName = makeId(12);
-    fileType = getFileType(url);
-    if (fileType) {
-        fileName += fileType;
-        await exports.downloadImage(url, `images/${fileName}`);
-        return fileName;
-    } else {
-        return false;
-    }
 }

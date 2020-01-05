@@ -6,27 +6,19 @@ exports.buildObject = function(msg) {
             filename: getAttachments[0].filename,
             url: getAttachments[0].url,
         }];
-    }
-    if (msg.content) {
         message["content"] = msg.content;
+    }
+    if(!message.attachments && msg.embeds.length > 0) {
+        var embed = msg.embeds[0];
+        if (embed.type === "image") {
+            message["attachments"] = [{
+                filename: exports.makeId(12),
+                url: embed.url,
+            }];
+        }
     }
     message["id"] = msg.id;
     return message;
-}
-
-exports.buildUrl = function(msg) {
-    var getIndex = msg.indexOf("http");
-    if (getIndex === -1) {
-        return getIndex;
-    }
-    var url = "";
-    for (let i = getIndex; i < msg.length; i++) {
-        if (msg[i] === " ") {
-            break;
-        }
-        url += msg[i];
-    }
-    return url;
 }
 
 exports.getFileType = function(fileName) {
